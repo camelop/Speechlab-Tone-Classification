@@ -12,6 +12,8 @@ Classify tones of single Chinese characters (different characters in different c
 
 ### Kaggle version
 
+https://www.kaggle.com/c/speechlab-tone-classification
+
 ```
 train/ - training data
 dev/ - validation data
