@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>SpeechLab-Tone-Classification Report</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="css/deck.core.css">
+	<link rel="stylesheet" href="css/deck.status.css">
+	<link rel="stylesheet" href="css/deck.scale.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="css/web-2.0.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="css/horizontal-slide.css">
+
+	<link rel="stylesheet" href="css/md_hl.css">
+	
+	<script src="js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide "><div class="content"><h1>SpeechLab-Tone-Classification Report</h1>
+<p>littleRound lxy9843@sjtu.edu.cn Speechlab-xyl98</p></div></section>
+<section class="slide "><div class="content"><h2>Task description</h2>
+<h3>Short version</h3>
+<p>Classify tones of single Chinese characters (different characters in different cases) by their f0/engy sequences.</p></div></section>
+<section class="slide "><div class="content"><h3>Kaggle version</h3>
+<div class="codehilite"><pre><span class="n">train</span><span class="o">/</span> <span class="o">-</span> <span class="n">training</span> <span class="n">data</span>
+<span class="n">dev</span><span class="o">/</span> <span class="o">-</span> <span class="n">validation</span> <span class="n">data</span>
+<span class="n">test</span><span class="o">/</span> <span class="o">-</span> <span class="n">difficult</span> <span class="n">test</span> <span class="n">data</span>
+<span class="n">Each</span> <span class="n">dir</span> <span class="n">includes</span> <span class="n">the</span> <span class="n">f0</span> <span class="n">and</span> <span class="n">engery</span> <span class="n">features</span> <span class="n">extracted</span> <span class="n">from</span> <span class="n">corresponding</span> <span class="n">wav</span> <span class="n">files</span><span class="p">.</span> <span class="n">Each</span> <span class="n">wav</span> <span class="n">file</span> <span class="n">is</span> <span class="n">the</span> <span class="n">pronunciation</span> <span class="n">of</span> <span class="n">a</span> <span class="n">single</span> <span class="n">Chinese</span> <span class="n">character</span><span class="p">.</span>
+
+<span class="n">Note</span> <span class="n">that</span> <span class="n">the</span> <span class="nb">length</span> <span class="n">of</span> <span class="n">different</span> <span class="n">wav</span> <span class="n">file</span> <span class="n">may</span> <span class="n">be</span> <span class="n">different</span><span class="p">.</span> <span class="n">Hence</span><span class="p">,</span> <span class="n">the</span> <span class="n">f0</span><span class="o">/</span><span class="n">engy</span> <span class="n">files</span> <span class="n">corresponding</span> <span class="n">to</span> <span class="n">different</span> <span class="n">character</span> <span class="n">may</span> <span class="n">also</span> <span class="n">have</span> <span class="n">different</span> <span class="nb">length</span><span class="p">.</span> <span class="n">But</span> <span class="k">for</span> <span class="n">the</span> <span class="n">same</span> <span class="n">character</span><span class="p">,</span> <span class="n">the</span> <span class="n">f0</span> <span class="n">file</span> <span class="n">will</span> <span class="n">have</span> <span class="n">exactly</span> <span class="n">the</span> <span class="n">same</span> <span class="nb">length</span> <span class="n">as</span> <span class="n">the</span> <span class="n">engy</span> <span class="n">file</span><span class="p">.</span>
+
+<span class="n">The</span> <span class="n">naming</span> <span class="n">convention</span> <span class="k">for</span> <span class="n">subdir</span> <span class="n">and</span> <span class="n">file</span> <span class="n">name</span> <span class="n">is</span> <span class="n">as</span> <span class="n">below</span><span class="p">:</span>
+
+<span class="n">subdir</span> <span class="n">name</span> <span class="n">indicates</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">tone</span><span class="p">.</span>
+<span class="n">filename</span> <span class="n">pattern</span> <span class="n">is</span>
+
+<span class="p">{</span><span class="n">pron</span><span class="p">}{</span><span class="n">tone_lable</span><span class="p">}.</span><span class="n">f0</span> <span class="p">{</span><span class="n">pron</span><span class="p">}{</span><span class="n">tone_lable</span><span class="p">}.</span><span class="n">engy</span>
+
+<span class="n">where</span> <span class="n">pron</span> <span class="n">is</span> <span class="n">the</span> <span class="n">pronunciation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">character</span> <span class="n">and</span> <span class="n">tone_lable</span> <span class="n">is</span> <span class="n">the</span> <span class="n">tone</span> <span class="n">of</span> <span class="n">that</span> <span class="n">character</span><span class="p">,</span> <span class="nb">i</span><span class="p">.</span><span class="n">e</span><span class="p">.</span> 1<span class="p">,</span> 2<span class="p">,</span> 3 <span class="n">or</span> 4<span class="p">.</span>
+
+<span class="n">Please</span> <span class="n">design</span> <span class="n">a</span> <span class="n">tone</span> <span class="n">classifer</span> <span class="n">with</span> <span class="n">the</span> <span class="n">f0</span><span class="o">/</span><span class="n">engy</span> <span class="n">file</span> <span class="n">as</span> <span class="n">the</span> <span class="n">input</span> <span class="n">and</span> <span class="n">output</span> <span class="n">the</span> <span class="n">tone</span> <span class="n">label</span><span class="p">.</span>
+</pre></div></div></section>
+<section class="slide "><div class="content"><h3>Illustration</h3>
+<p>Notice: values have been scaled and have different units.</p>
+<p><img alt="4 tones" src="README_pic/tone1234.png" /></p></div></section>
+<section class="slide "><div class="content"><h2>My solution</h2>
+<h3>Timeline</h3>
+<ul>
+<li>[1 day] Naive fully-connected network<ul>
+<li>Accuracy &lt; 50%</li>
+</ul>
+</li>
+<li>[3 days] CNN (with difference sequence)<ul>
+<li>Accuracy 60% - 70%</li>
+</ul>
+</li>
+<li>[4 days] fine-tuned 1D-CNN with some simple tricks<ul>
+<li>Accuracy 82% - 90%</li>
+<li>1st in LeaderBoard for less than 1 day</li>
+</ul>
+</li>
+<li>[1 day] Manual annotation (a bit cheating, discarded at last)<ul>
+<li>Accuracy 91% - 94%</li>
+<li>Validate my assumptions (intuitions)</li>
+<li>Two submissions to find out my best (94%)</li>
+</ul>
+</li>
+<li>[2 days] fine-tuned Rule-based classifier with a few tricks<ul>
+<li>Accuracy 99.122% (100% on dev)</li>
+<li>Use my assumptions validated before (no label used)</li>
+<li>1st in LeaderBoard at last</li>
+</ul>
+</li>
+</ul></div></section>
+<section class="slide "><div class="content"><h3>Observations and assumptions</h3>
+<ol>
+<li>The shape of the f0 sequence determines the tone.</li>
+<li>Only a short sequence is valid in the classification. (Or is enough to indicate the tone.)</li>
+<li>There are flaws in f0-detection causing jumps in sequence.</li>
+<li>It's hard to distinguish <code>TONE 1</code> directly, but the case is relativily easier for the rest three. </li>
+</ol></div></section>
+<section class="slide "><div class="content"><h3>Rules</h3>
+<h4>parameters:</h4>
+<ul>
+<li>[<code>findValidRange</code>]: [<code>f0_th</code>] [<code>cut</code>] [<code>engy_th</code>]</li>
+<li>[<code>correct_jump</code>]: <code>threshold</code></li>
+<li>[<code>stupidJudge</code>]: [<code>up_thres</code>] [<code>down_thres</code>] [<code>turn_thres</code>]</li>
+</ul></div></section>
+<section class="slide "><div class="content"><h4>steps</h4>
+<ol>
+<li>Preprocess<ul>
+<li>(Trivial) Scale engy to make life easier.</li>
+<li>[<code>findValidRange</code>] Find valid duration of time for tone-classfication.<ul>
+<li>If the sequence start with <code>f0 &lt; [f0_th]</code>, say <code>[f0_th] = 1</code>, then in this period of time f0-detection is not working. The data is invalid.</li>
+<li>If the sequence start with <code>engy &lt; [engy_th]</code>, then in this peroid of time there's hardly any sound. The data is invalid.</li>
+<li>Some unexpected detection result may occur at both the beginning and ending of the pronunciation. We'd better cut them off.</li>
+</ul>
+</li>
+<li>[<code>correct_jump</code>] Correct mistakes made in f0-detection.<ul>
+<li>If a sudden jump occured in f0 sequence (<code>f0[i+1] / f0[i] &gt; [threshold]</code>) , scale all f0 after that point so that <code>f0[i] = f0[i+1]</code>.<ul>
+<li>Reasonable because we only care about the <strong>trend</strong>0 of f0, not actual value. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol></div></section>
+<section class="slide "><div class="content"><ol>
+<li>[<code>stupidJudge</code>] Classfication<ul>
+<li>Only use <strong>corrected</strong> f0 sequence in <strong>valid range</strong>.</li>
+<li>Set $ m := min(f0_sequence) $ .</li>
+<li>If <code>f0[begin]/m &gt; 1 + [turn_thres]</code> and <code>f0[end]/m &gt; 1 + [turn_thres]</code><ul>
+<li>return <code>TONE 3</code></li>
+</ul>
+</li>
+<li>If <code>f0[end]/f0[begin] &gt; 1 + [up_thres]</code><ul>
+<li>return <code>TONE 2</code></li>
+</ul>
+</li>
+<li>If <code>f0[end]/f0[begin] &lt; 1 + [down_thres]</code><ul>
+<li>return <code>TONE 4</code></li>
+</ul>
+</li>
+<li>If it is not the cases above<ul>
+<li>return <code>TONE 1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol></div></section>
+<section class="slide "><div class="content"><h4>iillustration:</h4>
+<p><img alt="jump" src="README_pic/jump.png" /></p></div></section>
+<section class="slide "><div class="content"><p><img alt="energy" src="README_pic/energy.png" /></p></div></section>
+<section class="slide "><div class="content"><p><img alt="margins" src="README_pic/margins.png" /></p></div></section>
+<section class="slide "><div class="content"><h3>Parameter tuning</h3>
+<p>Every time after I updated my parameters, I run a script that outputs the accuracy rate along with specific detailed diagrams showing which case is predicted incorrectly in training set. After observing why mistakes happened I'm able to get the intuition needed for tunning all parameters or new method to process data.</p></div></section>
+
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="js/deck.core.js"></script>
+<script src="js/deck.status.js"></script>
+<script src="js/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+</html>
